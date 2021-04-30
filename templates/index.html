@@ -1,5 +1,14 @@
 {% extends 'base.html' %}
-
+<!--cargar archivos static-->
+{% load static %}
 {% block content %}
-Esta es mi pagina
+
+    <div class="site-blocks-cover" style="background-image: url({% static 'images/Portadaquesos.jpg' %});">
+        <div class='container'>
+            <div class='row'>
+                <div class='col-md pt-5 pt-md-0'>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock content %}
