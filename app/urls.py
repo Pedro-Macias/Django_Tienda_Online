@@ -23,6 +23,7 @@ from core import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.HomeViews.as_view(), name='home'),
+    path('contact/', views.ContactViews.as_view(), name ='contact'),
 ]
 # Archivos static y media
 if settings.DEBUG:
