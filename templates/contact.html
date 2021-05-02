@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 <!--cargar crispy-form-->
-{% load crispy_forms_tags%}
+{% load crispy_forms_tags %}
 
 <!--cargar archivos static-->
 {% load static %}
@@ -12,7 +12,7 @@
                 <div class='col-md-12 mb-0 '>
                     <a href="{% url 'home' %}">Home</a>
                     <span class= 'mx-2 mb-0'>/</span>
-                    <strong class='text-block'>Contact</strong>
+                    <strong class='text-block'>Contactu</strong>
                 </div>
             </div>
         </div>
@@ -20,8 +20,11 @@
     <div class='site-section'>
         <div class='container'>
             <div class='row justify-content-center'>
+            {%if 'ok' in request.POST %}
+            <p class='form-mensaje'>Informacion enviada correctamente, Gracias</p>
+            {% endif %}
                 <div class = 'col-md-7'>
-                    <h2 class ='h3 mb-3 text-black'>Get in Touch</h2>
+                    <h2 class ='h3 mb-3 text-black'>Contacta con Nós</h2>
                 </div>
                 <!--crear formulario-->
                 <div class = 'col-md-7'>

@@ -1,13 +1,13 @@
 from django import forms
 
 class ContactForm(forms.Form):
-    name = forms.CharField(max_length= 50, widget = forms.TextInput(attrs={
-        'placeholder':'Tu Nombre'
+    nome = forms.CharField(max_length= 50, widget = forms.TextInput(attrs={
+        'placeholder':"Escribe'l to Nome"
     }))
     email = forms.EmailField(widget = forms.TextInput(attrs={
-        'placeholder':'Tu Email'
+        'placeholder':"Indica'l to Email"
     }))
 
-    message = forms.CharField(widget = forms.TextInput(attrs={
-        'placeholder':'Este es tu mensaje'
+    mensaxe = forms.CharField(widget = forms.TextInput(attrs={
+        'placeholder':"Dexa'l to Mensaxe"
     }))
