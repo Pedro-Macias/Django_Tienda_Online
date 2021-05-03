@@ -5,6 +5,28 @@ from django.contrib.auth import get_user_model
 #DEFINIMOS EL USUARIO
 User = get_user_model() 
 
+# ADDRESS DEL CLIENTE
+class Address(model.Model):
+    ADDRESS_CHOICES = (
+        ('B', 'Billing'),
+        ('S', 'Shipping')
+    )
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    address_line_1 = models.CharField(max_length=150)
+    address_line_2 = models.CharField(max_length=150)
+    city =models.CharField(max_length=100)
+    zip_code= models.CharField(max_length=100)
+    address_type = models.CharField(max_length=1 ,choices=ADDRESS_CHOICES)
+    default = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f'{self.address_line_1} , {self.address_line_2} ,{self.city}, {self.zip_code}'
+
+    class Meta:
+        verbose_name_plural = 'Addresses'
+    
+
+
 # CREAMOS MODELO DEL PRODUCTO
 class Product(models.Model): 
     title = models.CharField(max_length=150)
@@ -33,6 +55,11 @@ class Order(models.Model):
     start_day = models.DateTimeField(auto_now_add=True)
     ordered_date = models.DateTimeField(blank= True , null= True)
     ordered = models.BooleanField(default=False)
+
+    billing_Address = models.ForeignKey(
+        Address, related_name='billing_address', blank= True, null=True,on_delete=models.SET_NULL )
+    shipping_Address = models.ForeignKey(
+        Address, related_name='shipping_address', blank= True, null=True,on_delete=models.SET_NULL )
 
     def __str__(self):
         return self.reference_number
