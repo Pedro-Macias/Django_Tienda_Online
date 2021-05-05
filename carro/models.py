@@ -6,7 +6,7 @@ from django.contrib.auth import get_user_model
 User = get_user_model() 
 
 # ADDRESS DEL CLIENTE
-class Address(model.Model):
+class Address(models.Model):
     ADDRESS_CHOICES = (
         ('B', 'Billing'),
         ('S', 'Shipping')
@@ -70,3 +70,27 @@ class Order(models.Model):
     @property
     def reference_number(self):
         return f'ORDER -{self.pk}'
+    
+# CREAMOS UNA CLASE PARA LOS PAGOS
+class Payment(models.Model):
+    order = models.ForeignKey(Order, on_delete= models.CASCADE, related_name='payments')
+    payment_method =  models.CharField(max_length=20 ,choices=(
+        ('Paypal','Paypal'),
+    ))
+    # cuando se hizo el pago
+    timestamp = models.DateTimeField(auto_now_add=True)
+    # pago acecptado
+    succesful = models.BooleanField(default=False)
+    # cantidad pagada
+    amount = models.FloatField()
+    # respuesta del procesador de pago 
+    row_response = models.TextField()
+
+    def __str__(self):
+        return self.order
+
+    @property
+    def reference_number(self):
+        return f'PAYMENT -{self.order}-{self.pk}'
+    
+
