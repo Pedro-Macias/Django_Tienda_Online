@@ -2,7 +2,7 @@
     <div class="container">
         <ul class="site-menu js-clone-nav d-none d-md-block" style="padding: 0;">
             <li><a href="/">Home</a></li>
-            <li><a href="/">Tienda</a></li>
+            <li><a href="{% url 'carro:product-list' %}">Tienda</a></li>
             <li><a href="{% url 'contact' %}">Contactu</a></li>
             {% if request.user.is_staff %}
                 <li><a href="/">Staff</a></li>
