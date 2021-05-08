@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.db.models.signals import pre_save
+from django.utils.text import slugify
 # Create your models here.
 
 #DEFINIMOS EL USUARIO
@@ -30,7 +32,8 @@ class Address(models.Model):
 # CREAMOS MODELO DEL PRODUCTO
 class Product(models.Model): 
     title = models.CharField(max_length=150)
-    slug = models.SlugField()
+    slug = models.SlugField(unique=True)
+    image= models.ImageField(upload_to='product_images')
     descripcion = models.TextField()
     created = models.DateField(auto_now_add= True)
     updated = models.DateField(auto_now=True)
@@ -93,4 +96,8 @@ class Payment(models.Model):
     def reference_number(self):
         return f'PAYMENT -{self.order}-{self.pk}'
     
+def pre_save_product_receiver(sender,instance, *args, **kwargs):
+    if not instance.slug:
+        instance.slug = slugify(instance.title)
 
+pre_save.connect(pre_save_product_receiver, sender=Product)

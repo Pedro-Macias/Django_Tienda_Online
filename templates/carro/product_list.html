@@ -18,8 +18,11 @@
         <div class='row mb-5'>  
         {% for product in object_list  %}     
             <div class = 'col-lg-4 col-md-6 mb-4' data-aos='fade-up' >
+                <figure class'block-4-image'>
+                    <a><img src="{{product.image.url}}" class='img-fluid' alt="{{ product.title }}"></a>
+                </figure>
                 <div class='bloc-4-text p-4'> </div> 
-                <a href=""><h3>{{ product.title }}</h3></a>
+                <a href=""><h4>{{ product.title }}</h4></a>
                 <p class ='mb-0'> {{ product.descripcion }}</p>
             </div>
         {% endfor %}        
