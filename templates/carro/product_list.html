@@ -7,7 +7,7 @@
             <div class='col-md-12 mb-0 '>
                 <a href="{% url 'home' %}">Home</a>
                 <span class= 'mx-2 mb-0'>/</span>
-                <strong class='text-block'>Contactu</strong>
+                <strong class='text-block'>Tienda</strong>
             </div>
         </div>
     </div>
@@ -19,10 +19,10 @@
         {% for product in object_list  %}     
             <div class = 'col-lg-4 col-md-6 mb-4' data-aos='fade-up' >
                 <figure class'block-4-image'>
-                    <a><img src="{{product.image.url}}" class='img-fluid' alt="{{ product.title }}"></a>
+                    <a href="{{ product.get_absolute_url}}"><img src="{{product.image.url}}" class='img-fluid' alt="{{ product.title }}"></a>
                 </figure>
                 <div class='bloc-4-text p-4'> </div> 
-                <a href=""><h4>{{ product.title }}</h4></a>
+                <a href="{{ product.get_absolute_url}}"><h4>{{ product.title }}</h4></a>
                 <p class ='mb-0'> {{ product.descripcion }}</p>
             </div>
         {% endfor %}        

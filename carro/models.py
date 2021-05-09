@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from django.db.models.signals import pre_save
 from django.utils.text import slugify
+from django.shortcuts import reverse    
 # Create your models here.
 
 #DEFINIMOS EL USUARIO
@@ -41,6 +42,10 @@ class Product(models.Model):
 
     def __str__(self):
         return self.title
+    # obtenemos el url aboluto
+    def get_absolute_url(self):
+        return reverse("carro:product-detail", kwargs={"slug": self.slug})
+    
     
 # Para hacer  una relacion entre en carrito y el producto  necesitamos un modelo intermedio
 # cuando alguien compra un item queremos que compre el oredn Item
