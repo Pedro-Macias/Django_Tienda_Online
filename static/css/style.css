@@ -751,3 +751,10 @@ a {
   width: 120px;
   border-radius: 50%;
   margin-bottom: 20px; }
+
+.site-text-index{
+  margin-top: 25%;
+  font-size: 3em;
+  color: #000;
+  font-weight: bold;
+}

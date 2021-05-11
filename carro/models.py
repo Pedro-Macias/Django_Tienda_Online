@@ -59,7 +59,7 @@ class OrderItem(models.Model):
 
 # vincular todos lor orderItem a una orden cuando hacemos la compra
 class Order(models.Model): 
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User,blank= True , null= True, on_delete=models.CASCADE)
     start_day = models.DateTimeField(auto_now_add=True)
     ordered_date = models.DateTimeField(blank= True , null= True)
     ordered = models.BooleanField(default=False)
