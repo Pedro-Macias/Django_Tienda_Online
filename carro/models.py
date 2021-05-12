@@ -29,6 +29,12 @@ class Address(models.Model):
         verbose_name_plural = 'Addresses'
     
 
+# DISTINTOS TIPOS DE PRODUCTO
+class TipoQueso(models.Model):
+    name =models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name
 
 # CREAMOS MODELO DEL PRODUCTO
 class Product(models.Model): 
@@ -39,6 +45,7 @@ class Product(models.Model):
     created = models.DateField(auto_now_add= True)
     updated = models.DateField(auto_now=True)
     active = models.BooleanField(False)
+    tipoQueso = models.ManyToManyField(TipoQueso)
 
     def __str__(self):
         return self.title
@@ -53,9 +60,11 @@ class OrderItem(models.Model):
     order = models.ForeignKey('Order', related_name='items', on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE) 
     quantity= models.PositiveIntegerField(default=1)
+    tipo = models.ForeignKey(TipoQueso, on_delete=models.CASCADE)
 
     def __str__(self):
         return f'{self.quantity} x {self.product.title}'
+
 
 # vincular todos lor orderItem a una orden cuando hacemos la compra
 class Order(models.Model): 
