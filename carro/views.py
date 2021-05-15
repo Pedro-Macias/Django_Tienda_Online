@@ -14,7 +14,7 @@ class ProductListView(generic.ListView):
 
 # vista de los productos
 
-class ProductDatailView(generic.FormView): 
+class ProductDetailView(generic.FormView): 
     template_name = 'carro/product_detail.html'
     form_class = AddToCarroForm
 
@@ -25,7 +25,7 @@ class ProductDatailView(generic.FormView):
         return reverse('home') #TODO: carro
 
     def get_form_kwargs(self):
-        kwargs= super(ProductDatailView, self).get_form_kwargs()
+        kwargs= super(ProductDetailView, self).get_form_kwargs()
         kwargs["product_id"] = self.get_object().id
         return kwargs
 
@@ -35,7 +35,10 @@ class ProductDatailView(generic.FormView):
         order = get_or_set_order_session(self.request)
         product = self.get_object()
         # logica para incrementar el carro 
-        item_filter= order.items.filter(product=product)
+        item_filter= order.items.filter(
+            product=product,
+            tipo = form.cleaned_data['tipo']
+            )
         if item_filter.exists():
             item = item_filter.first()
             item.quantity = int(form.cleaned_data['quantity'])
@@ -46,10 +49,10 @@ class ProductDatailView(generic.FormView):
             new_item.order = order
             new_item.save()
 
-        return super(ProductListView, self).form_valid(form)
+        return super(ProductDetailView, self).form_valid(form)
 
     def get_context_data(self, **kwargs):
-        context = super(ProductDatailView,self).get_context_data(**kwargs)
+        context = super(ProductDetailView,self).get_context_data(**kwargs)
         context["product"] =  self.get_object()
         return context
     
