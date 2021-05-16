@@ -40,7 +40,7 @@
                                         <h2 class='h5 text-black'>{{ item.product.title}}</h2>
                                         <small> Tipo : {{ item.tipo.name}} </small>
                                     </td>
-                                    <td>0</td>
+                                    <td>{{item.product.get_price}} €</td>
                                     <td>
                                         <div class='input-group mb-3'>
                                             <div class =input-group.pretend>
@@ -58,7 +58,7 @@
                                         </div>
                                     </td>
                                     <td> 
-                                    0 €
+                                        {{ item.get_total_item_price }} €
                                     </td>
                                     <td>
                                         <a href="#" class='btn btn-primary btn-sm'>eliminar</a>

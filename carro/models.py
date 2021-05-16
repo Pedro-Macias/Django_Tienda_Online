@@ -42,6 +42,7 @@ class Product(models.Model):
     slug = models.SlugField(unique=True)
     image= models.ImageField(upload_to='product_images')
     descripcion = models.TextField()
+    price = models.IntegerField(default=0)
     created = models.DateField(auto_now_add= True)
     updated = models.DateField(auto_now=True)
     active = models.BooleanField(False)
@@ -53,7 +54,11 @@ class Product(models.Model):
     def get_absolute_url(self):
         return reverse("carro:product-detail", kwargs={"slug": self.slug})
     
-    
+    # metodo par mostrar el precio
+    def get_price(self):
+        return '{:.2f}'.format(self.price/100)
+
+
 # Para hacer  una relacion entre en carrito y el producto  necesitamos un modelo intermedio
 # cuando alguien compra un item queremos que compre el oredn Item
 class OrderItem(models.Model): 
@@ -64,6 +69,17 @@ class OrderItem(models.Model):
 
     def __str__(self):
         return f'{self.quantity} x {self.product.title}'
+
+    # crear precio total
+    def get_raw_total_item_price(self):
+        return self.quantity * self.product.price
+
+    # mostrar el precio total
+    def get_total_item_price(self):
+        price = self.get_raw_total_item_price()
+        return '{:.2f}'.format(price/100)
+    
+
 
 
 # vincular todos lor orderItem a una orden cuando hacemos la compra
