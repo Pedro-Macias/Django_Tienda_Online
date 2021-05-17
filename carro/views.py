@@ -1,6 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import generic
-from .models import Product 
+from .models import OrderItem, Product 
 from .utils import get_or_set_order_session
 from .forms import AddToCarroForm
 
@@ -59,9 +59,17 @@ class ProductDetailView(generic.FormView):
 
 class CarroView(generic.TemplateView): 
     template_name = 'carro/carro.html'
-    def get_context_data(self, *args, **kwarks):
-        context = super(CarroView,self).get_context_data(**kwarks)
+    def get_context_data(self, *args, **kwargs):
+        context = super(CarroView,self).get_context_data( **kwargs)
         context["order"] = get_or_set_order_session(self.request) 
         return context
         
-        
+
+# incrementar los productos en el carrito
+
+class IncrementoCantidadView(generic.View):
+    def get(self, request , *args , **kwargs):
+        order_item = get_object_or_404(OrderItem, id=kwargs['pk'])
+        order_item.quantity +=1
+        order_item.save()
+        return redirect('carro:resumen')
