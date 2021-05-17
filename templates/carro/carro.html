@@ -44,7 +44,7 @@
                                     <td>
                                         <div class='input-group mb-3'>
                                             <div class =input-group.pretend>
-                                                <a href="#" class = 'btn btn-outline-primary'>
+                                                <a href="{% url 'carro:decremento-cantidad' item.id %}" class = 'btn btn-outline-primary'>
                                                 -
                                                 </a>
                                             </div>
@@ -61,8 +61,13 @@
                                         {{ item.get_total_item_price }} €
                                     </td>
                                     <td>
-                                        <a href="#" class='btn btn-primary btn-sm'>eliminar</a>
+                                        <a href="{% url 'carro:borrar-elemento' item.id %}" class='btn btn-primary btn-sm'>eliminar</a>
                                     </td>
+                                </tr>
+                                {% empty %}
+                                <tr>
+                                    <td colspan='6'>
+                                    No hay productos en el Carro. <a href="{% url 'carro:product-list'%}"> Continue la compra</a></td>
                                 </tr>
                             {% endfor %}
                         </tbody>
