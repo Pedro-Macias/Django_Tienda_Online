@@ -103,6 +103,29 @@ class Order(models.Model):
     @property
     def reference_number(self):
         return f'ORDER -{self.pk}'
+
+    # crear el subtotal
+    def get_raw_subtotal(self):
+        total= 0
+        for order_item in self.items.all():
+            total += order_item.get_raw_total_item_price()
+        return total
+    
+    # mostrar el subtotal
+    def get_subtotal(self):
+        subtotal = self.get_raw_subtotal()
+        return '{:.2f}'.format(subtotal/100)
+
+    # crear el total
+    def get_raw_total(self):
+        subtotal = self.get_raw_subtotal()
+        # agregar impurstos o descuentsos
+        # total = subtotal - descuentos + taxas + delivery
+        return subtotal
+    # mostrar el total
+    def get_total(self):
+        total = self.get_raw_total()
+        return '{:.2f}'.format(total/100)
     
 # CREAMOS UNA CLASE PARA LOS PAGOS
 class Payment(models.Model):
