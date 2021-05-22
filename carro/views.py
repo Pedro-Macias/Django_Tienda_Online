@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.views import generic
 from .models import OrderItem, Product 
 from .utils import get_or_set_order_session
-from .forms import AddToCarroForm
+from .forms import AddToCarroForm, AddressForm
 
 from django.shortcuts import get_object_or_404, reverse
 # Create your views here.
@@ -93,3 +93,13 @@ class BorrarFromCarroView(generic.View):
         order_item = get_object_or_404(OrderItem, id=kwargs['pk'])
         order_item.delete()
         return redirect('carro:resumen')
+
+#  el checkout
+class CheckoutView(generic.FormView):
+    template_name= 'carro/checkout.html'
+    form_class = AddressForm
+    
+    def get_context_data(self, **kwargs):
+        context = super(CheckoutView,self).get_context_data(**kwargs)
+        context["order"] =  get_or_set_order_session(self.request)
+        return context

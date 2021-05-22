@@ -14,3 +14,7 @@ class AddToCarroForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
 
         self.fields['tipo'].queryset = product.tipoQueso.all()    
+
+# formulario de direccion
+class AddressForm(forms.Form):
+    pass
