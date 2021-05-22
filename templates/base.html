@@ -1,4 +1,5 @@
 {% load static %}
+{% load carro_template_tags %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -67,7 +68,7 @@
                                 <li>
                                     <a href="{% url 'carro:resumen' %}" class="site-cart">
                                         <span><i class="fas fa-shopping-cart"></i></span>
-                                        <span class="count">0</span>
+                                        <span class="count">{{ request|carro_item_count }}</span>
                                     </a>
                                 </li>
                                 <li class="d-inline-block d-md-none ml-md-0">
