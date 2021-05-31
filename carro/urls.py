@@ -9,6 +9,7 @@ urlpatterns = [
     path("incremento-cantidad/<pk>/",views.IncrementoCantidadView.as_view(), name ='incremento-cantidad'),
     path("decremento-cantidad/<pk>/",views.DecrementoCantidadView.as_view(), name ='decremento-cantidad'),
     path("borrar-elemento/<pk>/",views.BorrarFromCarroView.as_view(), name ='borrar-elemento'),
-    path("checkout/",views.CheckoutView.as_view(), name ='checkout'),
+    path('checkout/', views.CheckoutView.as_view(), name='checkout'),
+    path('payment/', views.PaymentView.as_view() , name ='payment'),
 ]
 
