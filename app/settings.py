@@ -16,7 +16,7 @@ import environ
 
 env = environ.Env()
 
-# leer el archivo .env
+# Leer el archivo .env
 environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
     
     'crispy_forms',
     'core',
@@ -184,6 +185,6 @@ if DEBUG is False:
         }
     }
 
-# PAYPAL en debug.true
-# PAYPAL_CLIENT_ID=env('PAYPAL_LIVE_CLIENT_ID')
-# PAYPAL_SECRET_KEY=('PAYPAL_LIVE_SECRET_KEY')
+    # PAYPAL en debug.true
+    PAYPAL_CLIENT_ID=env('PAYPAL_LIVE_CLIENT_ID')
+    PAYPAL_SECRET_KEY=('PAYPAL_LIVE_SECRET_KEY')

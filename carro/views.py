@@ -102,7 +102,7 @@ class CheckoutView(generic.FormView):
     form_class = AddressForm
     # validacion
     def  get_success_url(self):
-        return reverse('carro:payment') #TODO payment 
+        return reverse('carro:payment') 
 
     def form_valid (self, form):
         order = get_or_set_order_session(self.request)
@@ -156,8 +156,8 @@ class CheckoutView(generic.FormView):
 
 class PaymentView(generic.TemplateView):
     template_name = 'carro/payment.html'
-    
+
     def get_context_data(self, **kwargs):
         context = super(PaymentView, self).get_context_data(**kwargs)
-        context['PAYPAL_CLIENT_ID'] = settings.PAYPAL_CLIENT_ID
+        context["PAYPAL_CLIENT_ID"] = settings.PAYPAL_CLIENT_ID
         return context
