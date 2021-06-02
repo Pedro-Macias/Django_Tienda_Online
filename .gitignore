@@ -5,3 +5,9 @@ app/*.env
 .vscode
 *.md
 *.env
+carro/__pycache__
+core/__pycache__
+/.env
+app/__init__.py
+carro/__init__.py
+core/__init__.py
