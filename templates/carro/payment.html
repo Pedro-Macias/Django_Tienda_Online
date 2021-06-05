@@ -1,7 +1,14 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div id="paypal-button-container"></div>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div id="paypal-button-container"></div>
+
+        </div>
+    </div>
+</div>
 
 
 {% endblock content %}
@@ -10,23 +17,34 @@
     <script src="https://www.paypal.com/sdk/js?client-id={{ PAYPAL_CLIENT_ID }}"></script>
 
     <script>
-
+        function sendOrderConfirmed{
+            return fetch("{% url 'carro:confirm-order' %}", {
+                method 'post',
+                body: JSON.stringify(details)
+            })
+        }
         paypal.Buttons({
             createOrder: function(data, actions) {
-            return actions.order.create({
-                purchase_units: [{
-                amount: {
-                    value: '0.01'
-                }
-                }]
-            });
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: '{{ order.get_get_total }}'
+                        }
+                    }]
+                });
             },
+            
             onApprove: function(data, actions) {
-            return actions.order.capture().then(function(details) {
-                alert('Transaction completed by ' + details.payer.name.given_name);
+                return actions.order.capture().then(function(details) {
+                    sendOrderConfirmed(). then(res =>{
+                        setTimeout(function() => {
+                        window.location.replace('{{ CALLBACK_URL }}')
+                        }, 3000);
+                    })
+                    
             });
             }
-        }).render('#paypal-button-container');
+        }).render('#paypal-button-container'); 
     </script>
 {% endblock scripts %}
 
